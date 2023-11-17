@@ -6,7 +6,7 @@ from threading import Lock
 
 LOCK = Lock() #mutex
 
-def doprint(msg):
+def mutexprint(msg):
     with LOCK: #Threads will grab mutex and print message.
         print(msg)
 
@@ -14,7 +14,7 @@ def scan(portNumber):
     s = socket(AF_INET, SOCK_STREAM)
     try:
         con = s.connect((address,portNumber)) #Attempt to connect via socket. If we can, that means it's open
-        doprint(f"Port {portNumber} is open")
+        mutexprint(f"Port {portNumber} is open")
         return True
     except:
         return False
@@ -34,15 +34,21 @@ def portNumber_validator(portNumber):
         case _ if portNumber <0:
             print("Port Number can not be negative")
             exit()
+        case _ if portNumber > 65535:
+            print("Port Number can not be greater than 65535")
+            exit()
     return portNumber
     
-address = ip_validator(gethostbyname(input('Enter address: '))) #grabs input and validates it is a valid address
-portNumber = portNumber_validator(int(input('Enter Upper Range Port Number to Check?: '))) #iterates from 1 to number for open ports
-
+address = ip_validator(gethostbyname(input("Enter address: "))) #grabs input and validates it is a valid address
+portNumber = portNumber_validator(int(input("Enter Upper Range Port Number to Check?: "))) #iterates from 1 to number for open ports
+threadNumber = int(input("Enter thread number: "))
+if threadNumber <= 0:
+    print(f"Thread Number can not be {threadNumber}")
+    exit()
 start_time = time.time()
 print("Starting Port Scanning ...")
 futures=[]
-with concurrent.futures.ThreadPoolExecutor(max_workers=portNumber) as executor: #Thread pools
+with concurrent.futures.ThreadPoolExecutor(max_workers=threadNumber) as executor: #Thread pools
      executor.map(scan,[*range(1,portNumber+1)])
 
 
