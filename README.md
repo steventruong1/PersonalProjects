@@ -11,3 +11,6 @@ A Python-based program that uses threads to check what ports are open on the add
 
 ## TCP Protocol File Upload
 A Python-based program that uses TCP protocol to upload and send files. Utilizes config file for settings such as IP address and Port Number. Uses AES to encrypt file.
+
+## Asset Bot Script
+A Python based program integrating Mosyle MDM, AssetBot API, and Gmail to notify users with checked-out devices based on device descriptions. To be used with Windows Task scheduler
