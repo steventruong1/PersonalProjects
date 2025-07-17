@@ -1,0 +1,9 @@
+Steps to setup
+
+Need to create .env with goolge credentials.json path location and Assetbot Api Key
+
+Need to setup Ouath account https://developers.google.com/workspace/gmail/api/quickstart/python
+
+Need to fill out according fields to make sense
+
+Need to setup as .exe for task scheduler or to run py script
